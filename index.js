@@ -618,16 +618,18 @@ function createPanZoom(domElement, options) {
 
   function beforeDoubleClick(e) {
     clearPendingClickEventTimeout();
+    console.log('beforeDoubleClick')
 
     // TODO: Need to unify this filtering names. E.g. use `beforeDoubleClick``
     if (options.onDoubleClick && !options.onDoubleClick(e)) {
       // if they return `false` from onTouch, we don't want to stop
       // events propagation. Fixes https://github.com/anvaka/panzoom/issues/46
-      return true;
+      return;
     }
 
     e.preventDefault();
     e.stopPropagation();
+    return true;
   }
 
   function handleSingleFingerTouch(e) {
