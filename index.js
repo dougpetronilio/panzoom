@@ -67,6 +67,7 @@ function createPanZoom(domElement, options) {
   var zoomDoubleClickSpeed = typeof options.zoomDoubleClickSpeed === 'number' ? options.zoomDoubleClickSpeed : defaultDoubleTapZoomSpeed;
   var beforeWheel = options.beforeWheel || noop;
   var beforeMouseDown = options.beforeMouseDown || noop;
+  var beforeDoubleClick = options.beforeDoubleClick || noop;
   var speed = typeof options.zoomSpeed === 'number' ? options.zoomSpeed : defaultZoomSpeed;
   var transformOrigin = parseTransformOrigin(options.transformOrigin);
   var textSelection = options.enableTextSelection ? fakeTextSelectorInterceptor : domTextSelectionInterceptor;
@@ -763,6 +764,9 @@ function createPanZoom(domElement, options) {
 
   function onDoubleClick(e) {
     beforeDoubleClick(e);
+
+    if(beforeDoubleClick(e)) return false;
+
     var offset = getOffsetXY(e);
     if (transformOrigin) {
       // TODO: looks like this is duplicated in the file.
