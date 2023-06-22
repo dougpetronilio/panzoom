@@ -623,7 +623,7 @@ function createPanZoom(domElement, options) {
     if (options.onDoubleClick && !options.onDoubleClick(e)) {
       // if they return `false` from onTouch, we don't want to stop
       // events propagation. Fixes https://github.com/anvaka/panzoom/issues/46
-      return;
+      return true;
     }
 
     e.preventDefault();
