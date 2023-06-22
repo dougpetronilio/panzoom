@@ -618,7 +618,6 @@ function createPanZoom(domElement, options) {
 
   function beforeDoubleClick(e) {
     clearPendingClickEventTimeout();
-    console.log('beforeDoubleClick')
 
     // TODO: Need to unify this filtering names. E.g. use `beforeDoubleClick``
     if (options.onDoubleClick && !options.onDoubleClick(e)) {
