@@ -763,8 +763,6 @@ function createPanZoom(domElement, options) {
   }
 
   function onDoubleClick(e) {
-    beforeDoubleClick(e);
-
     if(beforeDoubleClick(e)) return false;
 
     var offset = getOffsetXY(e);
