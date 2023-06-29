@@ -147,7 +147,8 @@ function createPanZoom(domElement, options) {
     setTransformOrigin: setTransformOrigin,
 
     getZoomSpeed: getZoomSpeed,
-    setZoomSpeed: setZoomSpeed
+    setZoomSpeed: setZoomSpeed,
+    onMouseMove: onMouseMove
   };
 
   eventify(api);

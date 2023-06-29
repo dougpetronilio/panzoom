@@ -68,6 +68,7 @@ function createPanZoom(domElement, options) {
   var zoomDoubleClickSpeed = typeof options.zoomDoubleClickSpeed === 'number' ? options.zoomDoubleClickSpeed : defaultDoubleTapZoomSpeed;
   var beforeWheel = options.beforeWheel || noop;
   var beforeMouseDown = options.beforeMouseDown || noop;
+  var beforeDoubleClick = options.beforeDoubleClick || noop;
   var speed = typeof options.zoomSpeed === 'number' ? options.zoomSpeed : defaultZoomSpeed;
   var transformOrigin = parseTransformOrigin(options.transformOrigin);
   var textSelection = options.enableTextSelection ? fakeTextSelectorInterceptor : domTextSelectionInterceptor;
@@ -629,6 +630,7 @@ function createPanZoom(domElement, options) {
 
     e.preventDefault();
     e.stopPropagation();
+    return true;
   }
 
   function handleSingleFingerTouch(e) {
@@ -764,7 +766,8 @@ function createPanZoom(domElement, options) {
   }
 
   function onDoubleClick(e) {
-    beforeDoubleClick(e);
+    if(beforeDoubleClick(e)) return false;
+
     var offset = getOffsetXY(e);
     if (transformOrigin) {
       // TODO: looks like this is duplicated in the file.
@@ -1101,6 +1104,7 @@ function autoRun() {
 
 autoRun();
 	
+
 },{"./lib/kinetic.js":2,"./lib/makeDomController.js":3,"./lib/makeSvgController.js":4,"./lib/makeTextSelectionInterceptor.js":5,"./lib/transform.js":6,"amator":7,"ngraph.events":9,"wheel":10}],2:[function(require,module,exports){
 /**
  * Allows smooth kinetic scrolling of the surface
@@ -1328,12 +1332,12 @@ function makeSvgController(svgElement, options) {
   }
 
   function getBBox() {
-    var bbox =  svgElement.getBBox();
+    var boundingBox =  svgElement.getBBox();
     return {
-      left: bbox.x,
-      top: bbox.y,
-      width: bbox.width,
-      height: bbox.height,
+      left: boundingBox.x,
+      top: boundingBox.y,
+      width: boundingBox.width,
+      height: boundingBox.height,
     };
   }
 
